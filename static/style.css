@@ -1,0 +1,55 @@
+html,
+body {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#content {
+  width: 100vw;
+}
+
+section#inicio {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section#inicio > article {
+  border: 1px solid #ccc;
+  margin-top: 64px;
+  padding: 8px;
+}
+
+section#inicio > picture {
+  margin-top: 64px;
+  width: 256px;
+}
+
+section#inicio > picture > img {
+  width: 200px;
+}
+
+section#nome_jurado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section#nome_jurado > form {
+  border: 1px solid #ccc;
+  padding: 8px;
+  margin-top: 32px;
+}
+
+footer {
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+}

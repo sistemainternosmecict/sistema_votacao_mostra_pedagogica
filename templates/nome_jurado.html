@@ -1,0 +1,15 @@
+{% extends "template.html" %} {% block content %}
+
+<section id="nome_jurado">
+  <form action="/registrar_jurado" method="post">
+    <h2>Insira seu nome e prossiga para iniciarmos a votação!</h2>
+    <input
+      type="text"
+      name="nome_jurado"
+      placeholder="Insira seu nome completo"
+    />
+    <input type="submit" value="Prosseguir" />
+  </form>
+</section>
+
+{% endblock %}

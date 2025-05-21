@@ -1,0 +1,17 @@
+{% extends "template.html" %} {% block content %}
+
+<section id="inicio">
+  <article>
+    <h1 class="important">
+      Bem vindo ao sistema de votação da Mostra Pedagógica
+    </h1>
+    <h3>Para iniciar, clique <a href="/inicio">aqui</a> !</h3>
+  </article>
+
+  <picture>
+    <img src={{ url_for('static', filename='logoSub.png') }}
+    alt="logo_subsecretaria_de_tecnologia">
+  </picture>
+</section>
+
+{% endblock %}
