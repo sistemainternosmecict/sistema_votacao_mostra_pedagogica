@@ -13,6 +13,9 @@ repo = JuradoRepository()
 def index():
     if 'jurado' in session:
         return redirect(url_for(votar))
+
+    jurados = repo.listar_jurados()
+    print(jurados)
     return render_template("index.html")
 
 @app.route("/inicio")
@@ -23,14 +26,17 @@ def inicio():
 def registrar_jurado():
     id_jurado = random.randint(10000, 99999)
     print(f"Registrando um jurado {id_jurado}")
-    session["jurado"] = request.form["nome_jurado"]
-    repo.inserir_jurado(session['jurado'], id_jurado)
+    session['jurado'] = request.form["nome_jurado"]
+    
     return redirect(url_for('votar'))
 
 @app.route("/votar")
 def votar():
     projeto = "Projeto de teste 1"
-    jurado = session['jurado']
+    jurado = "-"
+    if "jurado" in session:
+        jurado = session["jurado"]
+        print(">>>", jurado)
     return render_template("votar.html", projeto=projeto, jurado=jurado)
 
 @app.route("/registrar_novo_voto", methods=['POST'])
