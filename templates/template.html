@@ -5,6 +5,11 @@
     <link rel="stylesheet" href={{ url_for('static', filename='style.css') }} />
   </head>
   <body>
+    <header>
+      <figure>
+        <img src={{ url_for('static', filename='mostra_cor.jpg') }} alt="logo_da_mostra_pedagogica_de_2025">
+      </figure>
+    </header>
     <div id="content">{% block content %}{% endblock %}</div>
     <footer id="footer">
       <p>
