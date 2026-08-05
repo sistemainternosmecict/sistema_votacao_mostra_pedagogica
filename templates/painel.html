@@ -1,0 +1,166 @@
+{% extends "template.html" %}{% block content %}
+<style>
+    html,
+body {
+  display: flex;
+  width: 100vw;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background: #1B345C;
+  background: linear-gradient(0deg, rgb(158, 183, 220) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+div.container{
+    width: inherit;
+}
+
+div#content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  figure {
+    img {
+      width: 512px;
+      mix-blend-mode: multiply;
+    }
+  }
+}
+
+
+footer {
+  background-color: #1b345c;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: solid 1px white;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+
+  div.logos{
+    display: flex;
+  }
+
+
+  figure {
+    img{
+      width: 200px;
+    }
+  }
+  
+}
+
+.painel_divisor{
+  display: flex;
+  /* background-color: white; */
+  height: 200px;
+}
+
+.logs{
+  background-color: white;
+  border: solid 1px #1B345C;
+  margin: 4px;
+  padding: 4px;
+  overflow-y: scroll;
+  /* height: inherit; */
+  width: 600px;
+  
+}
+
+ul#log-votos{
+  list-style: none;
+  font-size: 14px;
+}
+
+.btnHolder{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  a{
+    text-decoration: none;
+    background-color: #1B345C;
+    color: white;
+    padding: 8px;
+    margin: 4px;
+  }
+
+  a:hover{
+    background-color: white;
+    color: #1B345C;
+    border: solid 1px #1B345C;
+  }
+}
+
+</style>
+
+<section id="admin">
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <div class="container">
+        <p>Status: 
+          <span style="font-weight: bold;">
+            {% if status == 1 %}
+              RODANDO
+              {% else %}
+              PARADO
+            {% endif %}
+
+          </span>
+        </p>
+
+	<!-- <p id="teste">teste</p> -->
+        
+        <div class="painel_divisor">
+          <div class="btnHolder">
+            <a href="/rank">Rankeamento de projetos</a>
+            <a href="/iniciar_votacao">Iniciar votação</a>
+            <a href="/encerrar_votacao">Encerrar votação</a>
+            <a href="/logout">Sair do admin</a>
+          </div>
+          <div class="logs">
+            <ul id="log-votos">
+                {% for entrada in log %}
+                    <li>{{ entrada }}</li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+</section>
+
+<script>
+    const teste = document.getElementById("teste");
+    const socket = io();
+
+    socket.on('connect', () => {
+        console.log('Conectado ao servidor para log de votos.');
+    });
+
+    socket.on('novo_voto', function(data) {
+        const log = document.getElementById('log-votos');
+        const novaLinha = document.createElement('li');
+        novaLinha.textContent = data.mensagem;
+        log.appendChild(novaLinha);
+
+        const votosProj = data.votos_projeto;
+
+        const votosFormatados = votosProj.map(item => {
+            return `Projeto ${item.id_projeto}: ${item.quantidade_votos} voto(s)\n`;
+        });
+
+        teste.innerText = votosFormatados;
+    });
+</script>
+
+
+{% endblock %}

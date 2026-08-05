@@ -1,0 +1,80 @@
+{% extends "template.html" %}{% block content %}
+<style>
+    html,
+body {
+  display: flex;
+  width: 100vw;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background: #1B345C;
+  background: linear-gradient(0deg, rgb(158, 183, 220) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+div.container{
+    width: inherit;
+}
+
+div#content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  figure {
+    img {
+      width: 512px;
+      mix-blend-mode: multiply;
+    }
+  }
+}
+
+
+footer {
+  background-color: #1b345c;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: solid 1px white;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+
+  div.logos{
+    display: flex;
+  }
+
+
+  figure {
+    img{
+      width: 200px;
+    }
+  }
+  
+}
+
+</style>
+
+<section id="admin">
+    <div class="container">
+        <h1>ADMIN LOGIN</h1>
+        <div class="login">
+            <form action="/login" method="post">
+                <label for="login">Usuario</label>
+                <input type="text" name="login" id="login">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha">
+                <input type="submit" value="Entrar">
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

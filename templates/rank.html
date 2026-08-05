@@ -1,0 +1,212 @@
+{% extends "template.html" %} {% block content %}
+
+<style>
+    html,
+body {
+  display: flex;
+  width: 100vw;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background: #1B345C;
+  background: linear-gradient(0deg, rgb(158, 183, 220) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+div.container{
+    width: inherit;
+}
+
+div#content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+section#rank{
+  
+  h3{
+        letter-spacing: 4px;
+        text-align: center;
+    }
+    
+    a#btnVoltar{
+      position: fixed;
+      top: 32px;
+      left: 32px;
+      text-decoration: none;
+      color: #1B345C;
+      border: solid 1px #4c6da2;
+      padding: 4px;
+      font-weight: bold;
+
+      &:hover{
+        background-color: #1B345C;
+        color: white;
+      }
+    }
+
+    article{
+        table{
+            user-select: none;
+            margin-bottom: 132px;
+            thead{
+                td{
+                    background-color: #1B345C;
+                    color: white;
+                    text-align: center;
+                }
+
+                td:nth-child(9){
+                    background-color: #1B345C;
+                }
+            }
+
+            td {
+                border: solid 1px black;
+                padding: 8px;
+                text-align: center;
+            }
+
+            td:nth-child(9){
+                background-color: #a8bc4e;
+            }
+
+        }
+    }
+}
+
+
+aside {
+  display: none;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  figure {
+    img {
+      width: 512px;
+      mix-blend-mode: multiply;
+    }
+  }
+}
+
+footer {
+  background-color: #1b345c;
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top: solid 1px white;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding-left: 32px;
+
+  div.logos{
+    display: flex;
+  }
+
+
+  figure {
+    img{
+      width: 250px;
+    }
+  }
+  
+}
+
+tr.primeiro {
+  background-color: gold;
+  background-color: rgb(253, 237, 144);
+  background-color: #a8bc4e;
+}
+
+tr.segundo {
+  background-color: silver;
+  background-color: rgb(146, 146, 146);
+  background-color: #ccdb87;
+}
+
+tr.terceiro {
+  background-color: #cd7f32;
+  background-color: #be956b;
+  background-color: #f5ffc9;
+}
+
+tr.base{
+  background-color: white;
+}
+</style>
+
+<section id="rank">
+
+  <a id="btnVoltar" href="/painel">Voltar ao painel</a>
+
+<article>
+    <h3>Rankeamento de projetos</h3>
+    <h3 style="color: #1B345C;">CATEGORIA: Educação Infantil (Creche e Pré-Escola)</h3>
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>UNIDADE</td>
+            <td>PROJETO</td>
+            <td>CT1</td>
+            <td>CT2</td>
+            <td>CT3</td>
+            <td>CT4</td>
+            <td>CT5</td>
+            <td>Total</td>
+        </thead>
+        <tbody>
+            {% for nota_final in votos['categoria_0'] %}
+            <tr class="{% if loop.index0 == 0 %}primeiro{% elif loop.index0 == 1 %}segundo{% elif loop.index0 == 2 %}terceiro{% else %}base{% endif %}">
+                <td>{{nota_final['id_projeto']}}</td>
+                <td>{{nota_final['unidade_escolar']}}</td>
+                <td>{{nota_final['titulo_projeto']}}</td>
+                <td>{{nota_final['ct1']}}</td>
+                <td>{{nota_final['ct2']}}</td>
+                <td>{{nota_final['ct3']}}</td>
+                <td>{{nota_final['ct4']}}</td>
+                <td>{{nota_final['ct5']}}</td>
+                <td>{{nota_final['total_geral']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3 style="color: #1B345C;">CATEGORIA: Fundamental ( I, II, e EJA)</h3>
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>UNIDADE</td>
+            <td>PROJETO</td>
+            <td>CT1</td>
+            <td>CT2</td>
+            <td>CT3</td>
+            <td>CT4</td>
+            <td>CT5</td>
+            <td>Total</td>
+        </thead>
+        <tbody>
+            {% for nota_final in votos['categoria_1'] %}
+            <tr class="{% if loop.index0 == 0 %}primeiro{% elif loop.index0 == 1 %}segundo{% elif loop.index0 == 2 %}terceiro{% else %}base{% endif %}">
+                <td>{{nota_final['id_projeto']}}</td>
+                <td>{{nota_final['unidade_escolar']}}</td>
+                <td>{{nota_final['titulo_projeto']}}</td>
+                <td>{{nota_final['ct1']}}</td>
+                <td>{{nota_final['ct2']}}</td>
+                <td>{{nota_final['ct3']}}</td>
+                <td>{{nota_final['ct4']}}</td>
+                <td>{{nota_final['ct5']}}</td>
+                <td>{{nota_final['total_geral']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</article>
+
+</section>
+
+{% endblock %}
