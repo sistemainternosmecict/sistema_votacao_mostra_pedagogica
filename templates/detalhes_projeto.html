@@ -9,9 +9,9 @@ body {
   padding: 0;
   height: 100vh;
   box-sizing: border-box;
-  font-family: sans-serif;
-  background: #1B345C;
-  background: linear-gradient(0deg, rgb(158, 183, 220) 0%, rgba(255, 255, 255, 1) 100%);
+  font-family: 'Inter', sans-serif;
+  background: #008080;
+  background: linear-gradient(0deg, rgb(217, 242, 242) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
 div.container{
@@ -29,14 +29,14 @@ section#detalhes_projeto, section#detalhes_projeto_edit{
     max-width: 600px;
     padding: 8px;
     background-color: white;
-    border: solid 1px #1B345C;
-    box-shadow: 1px 1px 8px rgba(0,0,0,.5);
+    border: solid 1px #008080;
+    border-radius: 8px;
     position: relative;
     margin-top: 32px;
 
     p.numeracao{
       font-weight: bold;
-      color: #0D1E3F;
+      color: #000000;
       letter-spacing: 2px;
     }
 
@@ -70,7 +70,7 @@ section#detalhes_projeto, section#detalhes_projeto_edit{
 section#detalhes_projeto > button, section#detalhes_projeto_edit > button, input[type=submit], #btnCancelar {
   padding: 8px;
   border: none;
-  background-color: #1B345C;
+  background-color: #008080;
   color: white;
   width: 100%;
   cursor: pointer;
@@ -78,9 +78,9 @@ section#detalhes_projeto > button, section#detalhes_projeto_edit > button, input
 }
 
 section#detalhes_projeto > button:hover, section#detalhes_projeto_edit > button:hover, #btnCancelar:hover, input[type=submit]:hover{
-  border: solid 1px #1B345C;
+  border: solid 1px #008080;
   background-color: white;
-  color: #1B345C;
+  color: #008080;
 }
 
 header {
@@ -100,7 +100,7 @@ header {
 } */
 
 footer {
-  background-color: #1b345c;
+  background-color: #008080;
   color: white;
   display: flex;
   justify-content: space-around;
@@ -118,10 +118,10 @@ footer {
 
   figure {
     img{
-      width: 200px;
+      width: 320px;
     }
   }
-  
+
 }
 
 .escondido{
@@ -130,18 +130,22 @@ footer {
 
 a#btnProjeto{
   text-decoration: none;
-  background-color: #0D1E3F;
+  background-color: #000000;
   color: white;
-  padding: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   .st0{fill:white;}
 }
 
 a#btnProjeto:hover{
   background-color: white;
-  color: #0D1E3F;
-  border: solid 1px #0D1E3F;
+  color: #000000;
+  border: solid 1px #000000;
   .st0{
-    fill: #0D1E3F;
+    fill: #000000;
   }
 }
 </style>
@@ -152,7 +156,7 @@ a#btnProjeto:hover{
     <div class="divider" style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
       <p class="numeracao">Projeto Nº {{projeto['id_projeto']}}</p>
       <a id="btnProjeto" href='{{projeto["link_projeto"]}}' target="_blank" style="display: flex; align-items: center;">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="32px" width="32px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20px" width="20px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve">
         <g>
           <path class="st0" d="M378.413,0H208.297h-13.182L185.8,9.314L57.02,138.102l-9.314,9.314v13.176v265.514   c0,47.36,38.528,85.895,85.896,85.895h244.811c47.353,0,85.881-38.535,85.881-85.895V85.896C464.294,38.528,425.766,0,378.413,0z    M432.497,426.105c0,29.877-24.214,54.091-54.084,54.091H133.602c-29.884,0-54.098-24.214-54.098-54.091V160.591h83.716   c24.885,0,45.077-20.178,45.077-45.07V31.804h170.116c29.87,0,54.084,24.214,54.084,54.092V426.105z"/>
           <path class="st0" d="M171.947,252.785h-28.529c-5.432,0-8.686,3.533-8.686,8.825v73.754c0,6.388,4.204,10.599,10.041,10.599   c5.711,0,9.914-4.21,9.914-10.599v-22.406c0-0.545,0.279-0.817,0.824-0.817h16.436c20.095,0,32.188-12.226,32.188-29.612   C204.136,264.871,192.182,252.785,171.947,252.785z M170.719,294.888h-15.208c-0.545,0-0.824-0.272-0.824-0.81v-23.23   c0-0.545,0.279-0.816,0.824-0.816h15.208c8.42,0,13.447,5.027,13.447,12.498C184.167,290,179.139,294.888,170.719,294.888z"/>
@@ -236,7 +240,7 @@ a#btnProjeto:hover{
           </div>
       {% endif %}
       {% endfor %}
-      
+
       <button id="btnCancelar">CANCELAR EDIÇÃO</button>
       <input type="submit" value="REGISTRAR MUDANÇAS">
     </form>
@@ -277,7 +281,7 @@ btnCancelar.addEventListener("click", (e) => {
 </style>
 <div>
   <figure>
-    <img src={{ url_for('static', filename='logo_mostra_branco.png') }} alt="logo_da_mostra_pedagogica_de_2025">
+    <img src={{ url_for('static', filename='logo_mostra_branco.png') }} alt="logo_da_mostra_pedagogica_de_2026">
   </figure>
 </div>
 {% endblock %}

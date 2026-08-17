@@ -10,8 +10,8 @@ body {
   padding: 0;
   height: 100vh;
   box-sizing: border-box;
-  font-family: sans-serif;
-  background: linear-gradient(0deg, rgb(158, 183, 220) 0%, rgba(255, 255, 255, 1) 100%);
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(0deg, rgb(217, 242, 242) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
 aside {
@@ -42,24 +42,23 @@ section#inicio {
 }
 
 section#inicio > article {
-  border: 1px solid white;
   margin-top: 64px;
   padding: 8px;
   text-align: center;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border-radius: 8px;
 
   a {
     text-decoration: none;
     padding: 8px;
-    background-color: #1B345C;
+    background-color: #008080;
     color: white;
     transition: all 0.2s ease-in-out;
   }
-  
+
   a:hover{
     background-color: white;
-    color: #1B345C;
-    border: solid 1px #1B345C;
+    color: #008080;
+    border: solid 1px #008080;
   }
 }
 
@@ -68,14 +67,14 @@ section#fim{
   margin: 0 auto;
   text-align: center;
   padding: 16px;
-  border: solid 1px #1B345C;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border: solid 1px #008080;
+  border-radius: 8px;
 }
 
 section#rank{
   article{
     table, th, td {
-      border: solid 1px #1B345C;
+      border: solid 1px #008080;
     }
 
     td{
@@ -93,36 +92,13 @@ section#rank{
       }
 
       tr:nth-child(even){
-        background-color: #1B345C;
+        background-color: #008080;
         color: white;
       }
     }
   }
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  background-color: #1b345c;
-  color: white;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-top: solid 1px white;
-
-  div.logos{
-    display: flex;
-  }
-
-
-  figure {
-    img{
-      width: 200px;
-    }
-  }
-  
-}
 
 .hidden{
   display: none;
