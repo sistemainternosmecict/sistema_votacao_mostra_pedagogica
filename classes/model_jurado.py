@@ -13,6 +13,7 @@ class Jurado(Base):
     id_jurado = Column(Integer)
     nome_jurado = Column(String, nullable=False)
     qnt_votos = Column(Integer)
+    acesso = Column(Integer, default=0)
 
     def __repr__(self):
         return f"<Jurado(id_jurado={self.id_jurado})>"
@@ -65,6 +66,34 @@ class JuradoRepository:
                     "qnt_votos": novo_jurado.qnt_votos
                 }
             }
+
+    def marcar_acesso(self, nome_jurado: str):
+        with self.get_session() as session:
+            jurado = session.query(Jurado).filter_by(nome_jurado=nome_jurado).first()
+            if jurado:
+                jurado.acesso = 1
+                return True
+            return False
+
+    def resetar_acesso(self, nome_jurado: str):
+        with self.get_session() as session:
+            jurado = session.query(Jurado).filter_by(nome_jurado=nome_jurado).first()
+            if jurado:
+                jurado.acesso = 0
+                return True
+            return False
+            
+    def verificar_acesso(self, nome_jurado: str) -> int:
+        with self.get_session() as session:
+            jurado = session.query(Jurado).filter_by(nome_jurado=nome_jurado).first()
+            if jurado:
+                return jurado.acesso
+            return 0
+
+    def resetar_todos_acessos(self):
+        with self.get_session() as session:
+            session.query(Jurado).update({Jurado.acesso: 0})
+            return True
 
     def atualizar_jurado(self, id_jurado:int, nome:str=None, qnt_votos:int=None):
         with self.get_session() as session:

@@ -8,11 +8,17 @@ from classes.projetos_lista import grupos_tematicos, categorias
 from classes.projetos_lista import projetos as lista_projetos
 from classes.database import close_all_sessions
 import traceback, multiprocessing, subprocess, os, time
+import uuid
 
 load_dotenv()
 
 def generate_flask_secret_key(length=24):
     return secrets.token_hex(length)
+
+from classes.model_jurado import JuradoRepository
+repo_init = JuradoRepository()
+repo_init.resetar_todos_acessos()
+BOOT_ID = str(uuid.uuid4())
 
 app = Flask(__name__)
 app.secret_key = generate_flask_secret_key()
@@ -124,15 +130,27 @@ def index():
 @app.route("/inicio")
 def inicio():
     jurados_lista = jurados
-    return render_template("nome_jurado.html", jurados=jurados_lista)
+    # Import JuradoRepository here temporarily if not imported globally
+    from classes.model_jurado import JuradoRepository
+    repo = JuradoRepository()
+    acessos = {j.nome_jurado: j.acesso for j in repo.listar_jurados()}
+    return render_template("nome_jurado.html", jurados=jurados_lista, acessos=acessos, boot_id=BOOT_ID)
 
 @app.route("/registrar_jurado", methods=['POST'])
 def registrar_jurado():
     jurado = ast.literal_eval(request.form['nome_jurado'])
     obj_jurado = Jurado(jurado)
-    dados_jurado = None
+    
+    # Server-side lock check
+    if obj_jurado.jurado_model.verificar_acesso(jurado['nome_completo']) == 1:
+        return "<script>alert('Acesso negado: Este jurado já está em uso!'); window.location.href='/inicio';</script>"
+        
     dados_jurado = obj_jurado.obter_dados_jurado()
     dados_jurado = obj_jurado.registrar_jurado()
+    
+    # Mark as accessed
+    obj_jurado.jurado_model.marcar_acesso(jurado['nome_completo'])
+    
     return redirect(url_for('votar', id_jurado=dados_jurado['jurado']['id_jurado'], jurado_nome=dados_jurado['jurado']['nome_jurado']))
 
 @app.route("/votar")
@@ -143,6 +161,10 @@ def votar():
     
     jurado = Jurado({"id_jurado":id_jurado})
     jurado.carregar_dados_jurado()
+    
+    if jurado.id_jurado is None:
+        return "<script>localStorage.removeItem('locked_jurado_id'); localStorage.removeItem('locked_jurado_nome'); window.location.href='/inicio';</script>"
+        
     jurado_dados = jurado.obter_dados_jurado()
     jurado_qnt_votos = jurado_dados['qnt_votos']
 
