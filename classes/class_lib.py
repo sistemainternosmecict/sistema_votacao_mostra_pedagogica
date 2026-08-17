@@ -73,9 +73,12 @@ class Jurado(Usuario):
 
     def carregar_dados_jurado(self)->None:
         model_data = self.jurado_model.carregar_jurado_por_id(self.id_jurado)
-        self.id_jurado = model_data.id_jurado
-        self.nome_completo = model_data.nome_jurado
-        self.qnt_votos = model_data.qnt_votos
+        if model_data:
+            self.id_jurado = model_data.id_jurado
+            self.nome_completo = model_data.nome_jurado
+            self.qnt_votos = model_data.qnt_votos
+        else:
+            self.id_jurado = None
 
     def registrar_jurado(self)->dict:
         return self.jurado_model.inserir_jurado(nome=self.nome_completo, qnt_votos=self.qnt_votos, id=self.id_jurado)

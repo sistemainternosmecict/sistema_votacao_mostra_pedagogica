@@ -131,18 +131,201 @@ footer {
   </form>
 </section>
 
-<script>
+<div id="confirm_modal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Confirmação de Acesso</h3>
+    <p>Atenção: Ao prosseguir, este dispositivo ficará vinculado ao jurado selecionado.</p>
+    
+    <div class="modal-info-box">
+      <strong>Nome do Jurado:</strong>
+      <span id="modal_nome">-</span>
+      <strong>Instituição:</strong>
+      <span id="modal_ies">-</span>
+    </div>
+    
+    <div class="modal-buttons">
+      <button id="btn_modal_cancelar" class="btn-cancelar" type="button">Cancelar</button>
+      <button id="btn_modal_confirmar" class="btn-confirmar" type="button">Confirmar</button>
+    </div>
+  </div>
+</div>
 
-const selectNome = document.getElementById("select_nome")
-const btnProsseguir = document.getElementById("btn_prosseguir")
+<style>
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-content h3 {
+  color: #008080;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.modal-info-box {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.modal-info-box strong {
+  display: block;
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.modal-info-box strong:first-child {
+  margin-top: 0;
+}
+
+.modal-info-box span {
+  display: block;
+  font-size: 1.05em;
+  color: #111;
+  font-weight: 600;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-confirmar {
+  background-color: #008080;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  flex: 1;
+  transition: background-color 0.2s;
+}
+
+.btn-confirmar:hover {
+  background-color: #006666;
+}
+
+.btn-cancelar {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  flex: 1;
+  transition: background-color 0.2s;
+}
+
+.btn-cancelar:hover {
+  background-color: #cccccc;
+}
+</style>
+
+<script>
+window.addEventListener('pageshow', (event) => {
+  const serverBootId = "{{ boot_id }}";
+  const lockedBootId = localStorage.getItem('locked_boot_id');
+  
+  if (lockedBootId && lockedBootId !== serverBootId) {
+      // O servidor reiniciou! Limpar a sessão fantasma.
+      localStorage.removeItem('locked_jurado_id');
+      localStorage.removeItem('locked_jurado_nome');
+      localStorage.removeItem('locked_boot_id');
+  } else {
+      const lockedId = localStorage.getItem('locked_jurado_id');
+      const lockedNome = localStorage.getItem('locked_jurado_nome');
+      
+      if (lockedId && lockedNome) {
+        window.location.href = `/votar?id_jurado=${lockedId}&jurado_nome=${encodeURIComponent(lockedNome)}`;
+      }
+  }
+});
+
+const selectNome = document.getElementById("select_nome");
+const btnProsseguir = document.getElementById("btn_prosseguir");
+const form = document.querySelector("form[action='/registrar_jurado']");
+
+const modal = document.getElementById("confirm_modal");
+const modalNome = document.getElementById("modal_nome");
+const modalIes = document.getElementById("modal_ies");
+const btnModalCancelar = document.getElementById("btn_modal_cancelar");
+const btnModalConfirmar = document.getElementById("btn_modal_confirmar");
+
+let selectedJuradoJson = null;
 
 selectNome.addEventListener("change", (e) => {
-  const value = e.target.value
+  const value = e.target.value;
   let jsonStr = value.replace(/'/g, '"');
-  const value_json = JSON.parse(jsonStr)
-  btnProsseguir.style.display = "block"
-})
+  selectedJuradoJson = JSON.parse(jsonStr);
+  btnProsseguir.style.display = "block";
+});
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent immediate submission
+  
+  if (selectedJuradoJson) {
+    modalNome.textContent = selectedJuradoJson.nome_completo;
+    modalIes.textContent = selectedJuradoJson.ies;
+    modal.classList.add("active");
+  }
+});
+
+btnModalCancelar.addEventListener("click", () => {
+  modal.classList.remove("active");
+});
+
+btnModalConfirmar.addEventListener("click", () => {
+  if (selectedJuradoJson) {
+    localStorage.setItem('locked_jurado_id', selectedJuradoJson.id_jurado);
+    localStorage.setItem('locked_jurado_nome', selectedJuradoJson.nome_completo);
+    localStorage.setItem('locked_boot_id', '{{ boot_id }}');
+  }
+  form.submit();
+});
 </script>
 
 {% endblock %}
