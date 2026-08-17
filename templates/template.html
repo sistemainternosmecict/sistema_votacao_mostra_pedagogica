@@ -3,25 +3,21 @@
   <head>
     <title>Sistema de votação da Mostra Pedagógica</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body class="corpo">
     <div class="container">
       <header>
         <figure>
-          <img src={{ url_for('static', filename='mostra_cor.jpg') }} alt="logo_da_mostra_pedagogica_de_2025">
+          <img src={{ url_for('static', filename='mostra_cor.jpg') }} alt="logo_da_mostra_pedagogica_de_2026">
         </figure>
       </header>
       <div id="content">{% block content %}{% endblock %}</div>
-      
+
       <footer id="footer">
-  
-        <div class="textos">
-          <div>
-            <p>Mostra Pedagógica</p>
-            <p>&copy; 2025 | SMECICT</p>
-          </div>
-        </div>
-        
         <div class="logos">
           {% block sublogo %}{% endblock %}
           <figure>
@@ -29,10 +25,15 @@
       alt="logo_prefeitura">
           </figure>
         </div>
+        <div class="textos">
+          <div>
+            <p>Mostra Pedagógica - &copy; 2026 | SMECICT</p>
+          </div>
+        </div>
       </footer>
     </div>
 
-    {% if votos_jurado %}
+    {% if votos_jurado and votos_jurado|length > 0 %}
     <aside class="projetos_votados">
       <p style="text-align: center;">Projetos votados</p>
       {% for voto in votos_jurado %}

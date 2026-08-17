@@ -10,9 +10,9 @@ body {
   padding: 0;
   height: 100vh;
   box-sizing: border-box;
-  font-family: sans-serif;
-  background: #1B345C;
-  background: linear-gradient(0deg, rgb(158, 183, 220) 0%, rgba(255, 255, 255, 1) 100%);
+  font-family: 'Inter', sans-serif;
+  background: #008080;
+  background: linear-gradient(0deg, rgb(217, 242, 242) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
 aside {
@@ -40,16 +40,16 @@ section#nome_jurado {
   flex-direction: column;
   align-items: center;
   width: 100vw;
+  border:none;
 }
 
 section#nome_jurado > form {
-  border: 1px solid #ccc;
   padding: 16px;
   margin-top: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border-radius: 8px;
 }
 
 section#nome_jurado > form > h2 {
@@ -69,7 +69,7 @@ section#nome_jurado > form > select {
 }
 
 section#nome_jurado > form > input[type="submit"]{
-  background-color: #1B345C;
+  background-color: #008080;
   color: white;
   border: none;
   transition: all .3s ease-in-out;
@@ -81,16 +81,16 @@ section#nome_jurado > form > input[type="submit"]{
 
 section#nome_jurado > form > input[type="submit"]:hover{
   background-color: white;
-  color: #1B345C;
+  color: #008080;
   border: none;
-  border: solid 1px #1B345C;
+  border: solid 1px #008080;
 }
 
 footer {
   position: fixed;
   bottom: 0;
   width: 100vw;
-  background-color: #1b345c;
+  background-color: #008080;
   color: white;
   display: flex;
   justify-content: space-around;
@@ -104,10 +104,10 @@ footer {
 
   figure {
     img{
-      width: 200px;
+      width: 320px;
     }
   }
-  
+
 }
 </style>
 

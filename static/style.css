@@ -5,13 +5,29 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
-  font-size: 18px;
-  background: #1B345C;
-  background: linear-gradient(0deg, rgba(27, 52, 92, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333333;
+  background: #008080;
+  background: linear-gradient(0deg, rgba(0, 128, 128, 1) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #000000;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
 
+p {
+  margin-bottom: 1em;
+}
+
+input, select, button, textarea {
+  border-radius: 8px;
+  font-family: inherit;
+}
 
 header {
   display: flex;
@@ -24,8 +40,14 @@ header {
   }
 }
 
+body > .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 #content {
-  /* width: 100vw; */
+  flex-grow: 1;
 }
 
 section#inicio {
@@ -37,24 +59,23 @@ section#inicio {
 }
 
 section#inicio > article {
-  border: 1px solid white;
   margin-top: 64px;
   padding: 8px;
   text-align: center;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border-radius: 8px;
 
   a {
     text-decoration: none;
     padding: 8px;
-    background-color: #1B345C;
+    background-color: #008080;
     color: white;
     transition: all 0.2s ease-in-out;
   }
-  
+
   a:hover{
     background-color: white;
-    color: #1B345C;
-    border: solid 1px #1B345C;
+    color: #008080;
+    border: solid 1px #008080;
   }
 }
 
@@ -65,13 +86,12 @@ section#nome_jurado {
 }
 
 section#nome_jurado > form {
-  border: 1px solid #ccc;
   padding: 16px;
   margin-top: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border-radius: 8px;
 }
 
 section#nome_jurado > form > h2 {
@@ -89,7 +109,7 @@ section#nome_jurado > form > input[type="text"] {
 }
 
 section#nome_jurado > form > input[type="submit"]{
-  background-color: #1B345C;
+  background-color: #008080;
   color: white;
   border: none;
   transition: all .3s ease-in-out;
@@ -100,9 +120,9 @@ section#nome_jurado > form > input[type="submit"]{
 
 section#nome_jurado > form > input[type="submit"]:hover{
   background-color: white;
-  color: #1B345C;
+  color: #008080;
   border: none;
-  border: solid 1px #1B345C;
+  border: solid 1px #008080;
 }
 
 section#votar{
@@ -113,15 +133,14 @@ section#votar{
   /* height: fit-content; */
   margin: 0 auto;
   padding: 8px;
-  border: 1px solid white;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border-radius: 8px;
   position: relative;
   margin-bottom: 64px;
 
   div.container{
     display: flex;
   }
-  
+
 
   h1#numerador{
     margin-top: 19.92px 0;
@@ -129,11 +148,11 @@ section#votar{
     color: black;
     top:0;
     right:16px;
-    border: #1B345C solid 1px;
+    border: #008080 solid 1px;
     background-color: white;
     font-size: 32px;
     padding: 8px;
-    box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+    border-radius: 8px;
   }
 
   h1{
@@ -148,14 +167,17 @@ section#votar{
 
     label{
       display: flex;
-      flex-direction: row-reverse;
-      justify-content: flex-end;
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+      gap: 16px;
       font-size: 20px;
       align-items: center;
-      background-color: white;
+      background-color: #f9f9f9;
       margin: 4px 0;
-      border: solid 1px #1B345C;
-      padding: 4px;
+      border: solid 1px #ccc;
+      border-radius: 8px;
+      padding: 8px 16px;
 
       select{
         height: 64px;
@@ -170,19 +192,19 @@ section#votar{
     width: 100%;
     cursor: pointer;
     margin-top: 32px;
-    background-color: #1B345C;
+    background-color: #008080;
     color: white;
     transition: all .3s ease-in-out;
     font-size: 20px;
     font-weight: 800;
   }
-  
+
   input[type=submit]:hover{
     background-color: white;
-    color: #1B345C;
-    border: solid 1px #1B345C;
+    color: #008080;
+    border: solid 1px #008080;
   }
-  
+
 
 }
 
@@ -192,13 +214,13 @@ section#fim{
   text-align: center;
   padding: 16px;
   border: solid 1px white;
-  box-shadow: 2px 2px 8px rgba(0,0,0,.4);
+  border-radius: 8px;
 }
 
 section#rank{
   article{
     table, th, td {
-      border: solid 1px #1B345C;
+      border: solid 1px #008080;
     }
 
     td{
@@ -216,7 +238,7 @@ section#rank{
       }
 
       tr:nth-child(even){
-        background-color: #1B345C;
+        background-color: #008080;
         color: white;
       }
     }
@@ -225,11 +247,14 @@ section#rank{
 
 footer {
   bottom: 0;
-  background-color: #1b345c;
+  background-color: #008080;
   color: white;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  padding: 16px 0;
+  gap: 16px;
   border-top: solid 1px white;
 
   div.logos{
@@ -239,8 +264,8 @@ footer {
 
   figure {
     img{
-      width: 250px;
+      width: 320px;
     }
   }
-  
+
 }
