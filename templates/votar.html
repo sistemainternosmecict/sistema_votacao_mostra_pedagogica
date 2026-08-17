@@ -1,96 +1,131 @@
 {% extends "template.html" %} {% block content %}
 
 <style>
-  html,
-  body {
-    display: flex;
-  }
-</style>
-
-<style>
 html,
 body {
-  width: 100vw;
+  width: 100%;
+  min-height: 100vh;
   border: 0;
   margin: 0;
   padding: 0;
-  height: 100vh;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
   background: #008080;
   background: linear-gradient(0deg, rgb(217, 242, 242) 0%, rgba(255, 255, 255, 1) 100%);
+  display: flex;
 }
 
 aside {
-  display: block;
-  width: 220px;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  min-width: 240px;
   background-color: white;
-  border: solid 1px #008080;
-  padding: 8px;
+  border-left: 1px solid #008080;
+  padding: 14px 12px;
   overflow-y: auto;
+  position: sticky;
+  top: 0;
   height: 100vh;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 aside::-webkit-scrollbar {
-  width: 8px; /* Largura da barra de rolagem */
+  width: 8px;
 }
 
 aside::-webkit-scrollbar-track {
-  background: #008080; /* Cor do fundo da barra */
+  background: #008080;
 }
 
 aside::-webkit-scrollbar-thumb {
-  background-color: #008080; /* Cor da parte móvel */
-  border-radius: 0px;        /* Cantos arredondados */
-  border: 2px solid #f1f1f1; /* Borda opcional para dar espaço */
+  background-color: #008080;
+  border-radius: 4px;
+  border: 2px solid #f1f1f1;
 }
 
 aside::-webkit-scrollbar-thumb:hover {
-  background-color: #000000; /* Cor ao passar o mouse */
+  background-color: #000000;
 }
 
 /* Para Firefox */
 aside {
-  scrollbar-width: auto;               /* largura: auto | thin | none */
-  scrollbar-color: #20B2AA #008080;    /* thumb cor | track cor */
+  scrollbar-width: auto;
+  scrollbar-color: #20B2AA #008080;
+}
+
+aside > p {
+  font-weight: 700;
+  color: #008080;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 aside > div.projeto{
-  border: solid 1px #008080;
-  padding: 8px;
-  margin: 8px 0;
+  border: 1px solid #008080;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 10px 0;
   text-align: center;
   display: flex;
   flex-direction: column;
+  background-color: #fcfefe;
+  box-shadow: 0 1px 4px rgba(0, 128, 128, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
 
-  a{
-    text-decoration: none;
-    background-color: #008080;
-    color: white;
-    padding: 8px;
-  }
+aside > div.projeto:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 128, 128, 0.15);
+}
 
-  a:hover{
-    background-color: white;
-    color: #008080;
-    border: solid 1px #008080;
-  }
+aside > div.projeto p {
+  font-size: 0.85rem;
+  color: #333333;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+aside > div.projeto p span {
+  font-weight: 800;
+  color: #008080;
+}
+
+aside > div.projeto a{
+  text-decoration: none;
+  background-color: #008080;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #008080;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+}
+
+aside > div.projeto a:hover{
+  background-color: white;
+  color: #008080;
+  border-color: #008080;
 }
 
 header {
   display: flex;
   justify-content: center;
-  figure {
-    display: none;
-    img {
-      width: 212px;
-      mix-blend-mode: multiply;
-    }
-  }
+}
+
+header figure {
+  display: none;
 }
 
 div#content {
   width: 100%;
+  flex: 1;
 }
 
 section#votar{
@@ -102,84 +137,22 @@ section#votar{
 body > div.container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
   flex: 1;
+  min-width: 0;
 }
 
 section#votar > div.container {
   width: 100%;
-  max-width: 900px;
+  max-width: 1040px;
   border: none;
-  padding: 8px;
-  margin-top: 32px;
+  padding: 12px 20px;
+  margin-top: 16px;
+  box-sizing: border-box;
 }
 
 section#votar > div.container > form{
   position: relative;
-}
-
-section#votar > div.container > form > h1 {
-  margin: 0;
-  font-weight: 100;
-  font-weight: bold;
-  color: #000000;
-  letter-spacing: 2px;
-}
-
-section#votar > div.container > form > h2 {
-  margin: 0px 0;
-  font-size: 20px;
-}
-
-section#votar > div.container > form > p {
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-section#votar > div.container > form > p > span {
-  font-weight: 200;
-}
-
-section#votar > div.container > form > div.container_criterios {
-  display: flex;
-  flex-direction: column;
-}
-
-section#votar > div.container > form > div.container_criterios > label {
-  font-size: 10pt;
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
-  gap: 16px;
-  padding: 8px 16px;
-  margin: 4px 0;
-  align-items: center;
-  background-color: #f9f9f9;
-  border: solid 1px #ccc;
-  border-radius: 8px;
-  color: #333;
-
-  select {
-    text-align: center;
-    font-size: 14pt;
-    height: 50px;
-    cursor: pointer;
-  }
-}
-
-section#votar > div.container > form > input[type=submit]{
-  width: 100%;
-  height: 50px;
-  cursor: pointer;
-  background-color: #008080;
-  color: white;
-  margin-top: 4px;
-  border: none;
-}
-
-section#votar > div.container > form > input[type=submit]:hover{
-  background-color: white;
-  border: solid 1px #008080;
-  color: #008080;
 }
 
 a#btnProjeto{
@@ -188,24 +161,305 @@ a#btnProjeto{
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   width: fit-content;
   gap: 8px;
-  .st0{fill:white;}
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid #000000;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+a#btnProjeto .st0{
+  fill: white;
+  transition: fill 0.2s ease-in-out;
 }
 
 a#btnProjeto:hover{
   background-color: white;
   color: #000000;
-  border: solid 1px #000000;
-  .st0{
-    fill: #000000;
-  }
+  border-color: #000000;
 }
 
-#numerador{
+a#btnProjeto:hover .st0{
+  fill: #000000;
+}
+
+.projeto_header_top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.projeto_numero_badge {
+  background-color: #ffffff;
+  border: 2px solid #008080;
+  color: #008080;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 7px 16px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 128, 128, 0.08);
+}
+
+.projeto_numero_badge span {
+  margin-left: 6px;
+  font-weight: 800;
   color: #000000;
+}
+
+.projeto_info_tabela {
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.info_row {
+  display: flex;
+  border-bottom: 1px solid #eef2f5;
+}
+
+.info_row:last-child {
+  border-bottom: none;
+}
+
+.info_label {
+  width: 170px;
+  min-width: 170px;
+  background-color: #f8fafc;
+  padding: 9px 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  border-right: 1px solid #eef2f5;
+  display: flex;
+  align-items: center;
+}
+
+.info_value {
+  flex: 1;
+  padding: 9px 16px;
+  color: #333333;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+}
+
+/* Container e Cards de Critérios de Votação (Linha Única Compacta) */
+.container_criterios {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.criterio_card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 8px 16px;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.criterio_card:hover {
+  border-color: #008080;
+  box-shadow: 0 3px 8px rgba(0, 128, 128, 0.08);
+}
+
+.criterio_info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.criterio_tag {
+  background-color: #e6f3f3;
+  color: #008080;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 128, 128, 0.2);
+}
+
+.criterio_texto {
+  font-size: 0.95rem;
+  color: #24292f;
+  line-height: 1.35;
+  margin: 0;
+  flex: 1;
+}
+
+.criterio_nota_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.criterio_nota_label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #555555;
+  letter-spacing: 0.5px;
+}
+
+.criterio_select {
+  width: 68px;
+  height: 38px;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #008080;
+  background-color: #f6fbfb;
+  border: 1.5px solid #008080;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  padding: 0 4px;
+}
+
+.criterio_select:hover {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.15);
+}
+
+.criterio_select:focus {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 128, 128, 0.25);
+  border-color: #006666;
+}
+
+/* Botão de Envio (Votar) */
+input[type="submit"]#btnVotar,
+section#votar > div.container > form > input[type=submit] {
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+  background-color: #008080;
+  color: white;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  border: 2px solid #008080;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 128, 128, 0.2);
+}
+
+input[type="submit"]#btnVotar:hover,
+section#votar > div.container > form > input[type=submit]:hover {
+  background-color: white;
+  border-color: #008080;
+  color: #008080;
+  box-shadow: 0 4px 10px rgba(0, 128, 128, 0.3);
+}
+
+/* Footer compacto */
+footer {
+  background-color: #008080;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 16px;
+  gap: 3px;
+  border-top: solid 1px rgba(255, 255, 255, 0.4);
+  width: 100%;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+
+footer div.logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer figure {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+footer figure img {
+  max-height: 32px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+}
+
+footer .textos p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+  .info_row {
+    flex-direction: column;
+  }
+  .info_label {
+    width: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid #eef2f5;
+    padding: 7px 12px;
+  }
+  .info_value {
+    padding: 7px 12px;
+  }
+  .criterio_card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .criterio_info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+  }
+  .criterio_nota_wrapper {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px dashed #e1e4e8;
+  }
 }
 
 </style>
@@ -218,179 +472,224 @@ a#btnProjeto:hover{
       <input type="hidden" name="projeto_titulo" value="{{projeto_titulo}}" />
       <input type="hidden" name="id_projeto" value="{{id_projeto}}" />
       <input type="hidden" name="id_jurado" value="{{id_jurado}}" />
-      <h1 id="numerador">Projeto Nº:{{id_projeto}}</h1>
-      <p>Jurado: <span>{{jurado_nome}}</span></p>
-      <p>Categoria: <span>{{categoria}}</span></p>
-      <p>Título do projeto: <span>{{projeto_titulo}}</span> | Unidade: <span>{{unidade_escolar}}</span></p>
-      <p>Grupo temático:
-        <span>
-          {{grupo_tematico['titulo']}}
-        </span>
-      </p>
-      <a id="btnProjeto" href="{{link_projeto}}" target="_blank" style="display: flex; align-items: center; margin-bottom: 16px;">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20px" width="20px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve">
-        <g>
-          <path class="st0" d="M378.413,0H208.297h-13.182L185.8,9.314L57.02,138.102l-9.314,9.314v13.176v265.514   c0,47.36,38.528,85.895,85.896,85.895h244.811c47.353,0,85.881-38.535,85.881-85.895V85.896C464.294,38.528,425.766,0,378.413,0z    M432.497,426.105c0,29.877-24.214,54.091-54.084,54.091H133.602c-29.884,0-54.098-24.214-54.098-54.091V160.591h83.716   c24.885,0,45.077-20.178,45.077-45.07V31.804h170.116c29.87,0,54.084,24.214,54.084,54.092V426.105z"/>
-          <path class="st0" d="M171.947,252.785h-28.529c-5.432,0-8.686,3.533-8.686,8.825v73.754c0,6.388,4.204,10.599,10.041,10.599   c5.711,0,9.914-4.21,9.914-10.599v-22.406c0-0.545,0.279-0.817,0.824-0.817h16.436c20.095,0,32.188-12.226,32.188-29.612   C204.136,264.871,192.182,252.785,171.947,252.785z M170.719,294.888h-15.208c-0.545,0-0.824-0.272-0.824-0.81v-23.23   c0-0.545,0.279-0.816,0.824-0.816h15.208c8.42,0,13.447,5.027,13.447,12.498C184.167,290,179.139,294.888,170.719,294.888z"/>
-          <path class="st0" d="M250.191,252.785h-21.868c-5.432,0-8.686,3.533-8.686,8.825v74.843c0,5.3,3.253,8.693,8.686,8.693h21.868   c19.69,0,31.923-6.249,36.81-21.324c1.76-5.3,2.723-11.681,2.723-24.857c0-13.175-0.964-19.557-2.723-24.856   C282.113,259.034,269.881,252.785,250.191,252.785z M267.856,316.896c-2.318,7.331-8.965,10.459-18.21,10.459h-9.23   c-0.545,0-0.824-0.272-0.824-0.816v-55.146c0-0.545,0.279-0.817,0.824-0.817h9.23c9.245,0,15.892,3.128,18.21,10.46   c0.95,3.128,1.62,8.56,1.62,17.93C269.476,308.336,268.805,313.768,267.856,316.896z"/>
-          <path class="st0" d="M361.167,252.785h-44.812c-5.432,0-8.7,3.533-8.7,8.825v73.754c0,6.388,4.218,10.599,10.055,10.599   c5.697,0,9.914-4.21,9.914-10.599v-26.351c0-0.538,0.265-0.81,0.81-0.81h26.086c5.837,0,9.23-3.532,9.23-8.56   c0-5.028-3.393-8.553-9.23-8.553h-26.086c-0.545,0-0.81-0.272-0.81-0.817v-19.425c0-0.545,0.265-0.816,0.81-0.816h32.733   c5.572,0,9.245-3.666,9.245-8.553C370.411,256.45,366.738,252.785,361.167,252.785z"/>
-        </g>
-      </svg> Projeto
-      </a>
+
+      <div class="projeto_header_top">
+        <div class="projeto_numero_badge">
+          Projeto Nº: <span>{{id_projeto}}</span>
+        </div>
+        <a id="btnProjeto" href="{{link_projeto}}" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="18px" width="18px" viewBox="0 0 512 512" xml:space="preserve">
+            <g>
+              <path class="st0" d="M378.413,0H208.297h-13.182L185.8,9.314L57.02,138.102l-9.314,9.314v13.176v265.514   c0,47.36,38.528,85.895,85.896,85.895h244.811c47.353,0,85.881-38.535,85.881-85.895V85.896C464.294,38.528,425.766,0,378.413,0z    M432.497,426.105c0,29.877-24.214,54.091-54.084,54.091H133.602c-29.884,0-54.098-24.214-54.098-54.091V160.591h83.716   c24.885,0,45.077-20.178,45.077-45.07V31.804h170.116c29.87,0,54.084,24.214,54.084,54.092V426.105z"/>
+              <path class="st0" d="M171.947,252.785h-28.529c-5.432,0-8.686,3.533-8.686,8.825v73.754c0,6.388,4.204,10.599,10.041,10.599   c5.711,0,9.914-4.21,9.914-10.599v-22.406c0-0.545,0.279-0.817,0.824-0.817h16.436c20.095,0,32.188-12.226,32.188-29.612   C204.136,264.871,192.182,252.785,171.947,252.785z M170.719,294.888h-15.208c-0.545,0-0.824-0.272-0.824-0.81v-23.23   c0-0.545,0.279-0.816,0.824-0.816h15.208c8.42,0,13.447,5.027,13.447,12.498C184.167,290,179.139,294.888,170.719,294.888z"/>
+              <path class="st0" d="M250.191,252.785h-21.868c-5.432,0-8.686,3.533-8.686,8.825v74.843c0,5.3,3.253,8.693,8.686,8.693h21.868   c19.69,0,31.923-6.249,36.81-21.324c1.76-5.3,2.723-11.681,2.723-24.857c0-13.175-0.964-19.557-2.723-24.856   C282.113,259.034,269.881,252.785,250.191,252.785z M267.856,316.896c-2.318,7.331-8.965,10.459-18.21,10.459h-9.23   c-0.545,0-0.824-0.272-0.824-0.816v-55.146c0-0.545,0.279-0.817,0.824-0.817h9.23c9.245,0,15.892,3.128,18.21,10.46   c0.95,3.128,1.62,8.56,1.62,17.93C269.476,308.336,268.805,313.768,267.856,316.896z"/>
+              <path class="st0" d="M361.167,252.785h-44.812c-5.432,0-8.7,3.533-8.7,8.825v73.754c0,6.388,4.218,10.599,10.055,10.599   c5.697,0,9.914-4.21,9.914-10.599v-26.351c0-0.538,0.265-0.81,0.81-0.81h26.086c5.837,0,9.23-3.532,9.23-8.56   c0-5.028-3.393-8.553-9.23-8.553h-26.086c-0.545,0-0.81-0.272-0.81-0.817v-19.425c0-0.545,0.265-0.816,0.81-0.816h32.733   c5.572,0,9.245-3.666,9.245-8.553C370.411,256.45,366.738,252.785,361.167,252.785z"/>
+            </g>
+          </svg>
+          <span>Projeto</span>
+        </a>
+      </div>
+
+      <div class="projeto_info_tabela">
+        <div class="info_row">
+          <div class="info_label">Jurado:</div>
+          <div class="info_value">{{jurado_nome}}</div>
+        </div>
+        <div class="info_row">
+          <div class="info_label">Categoria:</div>
+          <div class="info_value">{{categoria}}</div>
+        </div>
+        <div class="info_row">
+          <div class="info_label">Título do projeto:</div>
+          <div class="info_value">{{projeto_titulo}}</div>
+        </div>
+        <div class="info_row">
+          <div class="info_label">Unidade:</div>
+          <div class="info_value">{{unidade_escolar}}</div>
+        </div>
+        <div class="info_row">
+          <div class="info_label">Grupo temático:</div>
+          <div class="info_value">{{grupo_tematico['titulo']}}</div>
+        </div>
+      </div>
 
       <div class="container_criterios">
-        <label for="nota_do_projeto_ct_1">
-          Critério 1 - Conformidade com o tema/ grupo temático/ Plano de Metas
-          <select name="nota_1" id="nota_do_projeto_ct_1">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-          </select>
+        <label class="criterio_card" for="nota_do_projeto_ct_1">
+          <div class="criterio_info">
+            <span class="criterio_tag">Critério 1</span>
+            <p class="criterio_texto">Conformidade com o tema / grupo temático / Plano de Metas</p>
+          </div>
+          <div class="criterio_nota_wrapper">
+            <span class="criterio_nota_label">Nota</span>
+            <select name="nota_1" id="nota_do_projeto_ct_1" class="criterio_select">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
         </label>
-        <label for="nota_do_projeto_ct_2">
-          Critério 2 - Criatividade: levar em consideração a metodologia/ desenvolvimento, bem como a proposta quanto à resolução de problemas e intervenção pedagógica para a sociedade.
-          <select name="nota_2" id="nota_do_projeto_ct_2">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-          </select>
+
+        <label class="criterio_card" for="nota_do_projeto_ct_2">
+          <div class="criterio_info">
+            <span class="criterio_tag">Critério 2</span>
+            <p class="criterio_texto">Criatividade: levar em consideração a metodologia / desenvolvimento, bem como a proposta quanto à resolução de problemas e intervenção pedagógica para a sociedade.</p>
+          </div>
+          <div class="criterio_nota_wrapper">
+            <span class="criterio_nota_label">Nota</span>
+            <select name="nota_2" id="nota_do_projeto_ct_2" class="criterio_select">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
         </label>
-        <label for="nota_do_projeto_ct_3">
-          Critério 3 - Exportabilidade (ações, estratégias, aplicabilidade e replicabilidade).
-          <select name="nota_3" id="nota_do_projeto_ct_3">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-          </select>
+
+        <label class="criterio_card" for="nota_do_projeto_ct_3">
+          <div class="criterio_info">
+            <span class="criterio_tag">Critério 3</span>
+            <p class="criterio_texto">Exportabilidade (ações, estratégias, aplicabilidade e replicabilidade).</p>
+          </div>
+          <div class="criterio_nota_wrapper">
+            <span class="criterio_nota_label">Nota</span>
+            <select name="nota_3" id="nota_do_projeto_ct_3" class="criterio_select">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
         </label>
-        <label for="nota_do_projeto_ct_4">
-          Critério 4 - Qualidade em todo projeto/prática apresentado.
-          <select name="nota_4" id="nota_do_projeto_ct_4">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-          </select>
+
+        <label class="criterio_card" for="nota_do_projeto_ct_4">
+          <div class="criterio_info">
+            <span class="criterio_tag">Critério 4</span>
+            <p class="criterio_texto">Qualidade em todo projeto / prática apresentado.</p>
+          </div>
+          <div class="criterio_nota_wrapper">
+            <span class="criterio_nota_label">Nota</span>
+            <select name="nota_4" id="nota_do_projeto_ct_4" class="criterio_select">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
         </label>
-        <label for="nota_do_projeto_ct_5">
-          Critério 5 - Impacto (resultados esperados/desempenho do estudante). Considerar impacto imediato e impacto a longo prazo, pensando na lógica de teoria da mudança.
-          <select name="nota_5" id="nota_do_projeto_ct_5">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-          </select>
+
+        <label class="criterio_card" for="nota_do_projeto_ct_5">
+          <div class="criterio_info">
+            <span class="criterio_tag">Critério 5</span>
+            <p class="criterio_texto">Impacto (resultados esperados / desempenho do estudante). Considerar impacto imediato e impacto a longo prazo, pensando na lógica de teoria da mudança.</p>
+          </div>
+          <div class="criterio_nota_wrapper">
+            <span class="criterio_nota_label">Nota</span>
+            <select name="nota_5" id="nota_do_projeto_ct_5" class="criterio_select">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
         </label>
       </div>
 
-      <input type="submit" value="VOTAR" />
+      <input type="submit" id="btnVotar" value="VOTAR" />
     </form>
 
   </div>
 </section>
 {% endblock %}
 
-{% block sublogo%}
-<style>
-  div.textos{
-    display: flex;
-    align-items: center;
-    div > figure > img {
-      width: 196px;
-    }
-  }
-</style>
-<div>
-  <figure>
-    <img src={{ url_for('static', filename='logo_mostra_branco.png') }} alt="logo_da_mostra_pedagogica_de_2026">
-  </figure>
-</div>
+{% block sublogo %}
+<figure>
+  <img src="{{ url_for('static', filename='logo_mostra_branco.png') }}" alt="logo_da_mostra_pedagogica_de_2026">
+</figure>
 {% endblock %}
+
